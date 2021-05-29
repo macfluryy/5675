@@ -1,4 +1,4 @@
-﻿local Hint = Instance.new("Hint", game.CoreGui)
+local Hint = Instance.new("Hint", game.CoreGui)
 Hint.Text = "satisfied | Waiting for the game to load..."
 
 repeat wait() until game:IsLoaded()
@@ -28,38 +28,32 @@ if (isfolder == false) then return game.Players.LocalPlayer:Kick("Exploit not su
 Hint.Text = "satisfied | Setting up configuration settings..."
 
 if not isfolder("satisfied") then
-	print("creating satisfied folder")
 	makefolder("satisfied")
 end
 
 if not isfolder("satisfied/configs") then
-	print("creating satisfied configs folder")
 	makefolder("satisfied/configs")
 end
 
 if not isfile("satisfied/autoload.txt") then
-	print("creating satisfied autoload file")
-	writefile("satisfied/autoload.txt", "")
+	writefile("tified/autoload.txt", "")
 end
 
 if not isfile("satisfied/custom_skins.txt") then
-	print("downloading satisfied custom skins file")
-	writefile("satisfied/custom_skins.txt", game:HttpGet("https://raw.githubusercontent.com/Pawel12d/satisfied/main/scripts/default_data/custom_skins.txt"))
+	writefile("tified/custom_skins.txt", game:HttpGet("https://raw.githubusercontent.com/nkolotovkin1/5675/main/default_data/custom_skins.txt"))
 end
 
 if not isfile("satisfied/custom_models.txt") then
-	print("downloading satisfied custom models file")
-	writefile("satisfied/custom_models.txt", game:HttpGet("https://raw.githubusercontent.com/Pawel12d/satisfied/main/scripts/default_data/custom_models.txt"))
+	writefile("tified/custom_models.txt", game:HttpGet("https://raw.githubusercontent.com/nkolotovkin1/5675/main/default_data/custom_models.txt"))
 end
 
 if not isfile("satisfied/inventories.txt") then
 	print("downloading satisfied inventories file")
-	writefile("satisfied/inventories.txt", game:HttpGet("https://raw.githubusercontent.com/Pawel12d/satisfied/main/scripts/default_data/inventories.txt"))
+	writefile("tified/inventories.txt", game:HttpGet("https://raw.githubusercontent.com/nkolotovkin1/5675/main/default_data/inventories.txt"))
 end
 
 if not isfile("satisfied/skyboxes.txt") then
-	print("downloading satisfied skyboxes file")
-	writefile("satisfied/skyboxes.txt", game:HttpGet("https://raw.githubusercontent.com/Pawel12d/satisfied/main/scripts/default_data/skyboxes.txt"))
+	writefile("tified/skyboxes.txt", game:HttpGet("https://raw.githubusercontent.com/nkolotovkin1/5675/main/default_data/skyboxes.txt"))
 end
 
 Hint.Text = "satisfied | Loading..."
@@ -110,8 +104,8 @@ local FOVCircle = Drawing.new("Circle")
 local Cases = {}; for i,v in pairs(game.ReplicatedStorage.Cases:GetChildren()) do table.insert(Cases, v.Name) end
 
 local Configs = {}
-local Inventories = loadstring("return "..readfile("satisfied/inventories.txt"))()
-local Skyboxes = loadstring("return "..readfile("satisfied/skyboxes.txt"))()
+local Inventories = loadstring("return "..readfile("tified/inventories.txt"))()
+local Skyboxes = loadstring("return "..readfile("tified/skyboxes.txt"))()
 
 
 
@@ -127,8 +121,8 @@ local nocw_m = {}
 local curVel = 16
 local isBhopping = false
 
-local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/Pawel12d/satisfied/main/scripts/ESP.lua"))()
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Pawel12d/satisfied/main/scripts/UILibrary.lua"))()
+local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/nkolotovkin1/5675/main/ESP.lua"))()
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/nkolotovkin1/5675/main/UILibrary.lua"))()
 
 local Window = library:CreateWindow(Vector2.new(500, 500), Vector2.new((workspace.CurrentCamera.ViewportSize.X/2)-250, (workspace.CurrentCamera.ViewportSize.Y/2)-250))
 
@@ -1022,7 +1016,7 @@ end)
 MiscellaneousTabCategoryMain:AddSlider("Open Case Amount", {1, 100, 1, 1, ""}, "MiscellaneousTabCategoryMainOpenCaseAmount")
 
 local a,b = pcall(function()
-	MiscellaneousTabCategoryMain:AddMultiDropdown("Custom Models", TableToNames(loadstring("return "..readfile("satisfied/custom_models.txt"))(), true), {}, "MiscellaneousTabCategoryMainCustomModels", function(val)
+	MiscellaneousTabCategoryMain:AddMultiDropdown("Custom Models", TableToNames(loadstring("return "..readfile("tified/custom_models.txt"))(), true), {}, "MiscellaneousTabCategoryMainCustomModels", function(val)
 		if not ViewmodelsBackup then
 			ViewmodelsBackup = game.ReplicatedStorage.Viewmodels:Clone()
 		end
@@ -1031,7 +1025,7 @@ local a,b = pcall(function()
 
 		ViewmodelsBackup:Clone().Parent = game.ReplicatedStorage
 
-		for i,v in pairs(loadstring("return "..readfile("satisfied/custom_models.txt"))()) do
+		for i,v in pairs(loadstring("return "..readfile("tified/custom_models.txt"))()) do
 			if table.find(val, v.weaponname) then
 				AddCustomModel(v)
 			end
@@ -1045,7 +1039,7 @@ end
 
 MiscellaneousTabCategoryMain:AddDropdown("Inventory Changer", TableToNames(Inventories), "-", "MiscellaneousTabCategoryMainInventoryChanger", function(val)
 	local InventoryLoadout = LocalPlayer.PlayerGui.GUI["Inventory&Loadout"]
-	local InventoriesData = loadstring("return "..readfile("satisfied/inventories.txt"))()
+	local InventoriesData = loadstring("return "..readfile("tified/inventories.txt"))()
 
 	if typeof(InventoriesData[val]) == "table" then
 		cbClient.CurrentInventory = InventoriesData[val]
@@ -1094,7 +1088,7 @@ end)
 
 MiscellaneousTabCategoryMain:AddButton("Inject Custom Skins", function()
 	if #nocw_s == 0 then
-		for i,v in pairs(loadstring("return "..readfile("satisfied/custom_skins.txt"))()) do
+		for i,v in pairs(loadstring("return "..readfile("tified/custom_skins.txt"))()) do
 			AddCustomSkin(v)
 			game:GetService("RunService").Stepped:Wait()
 		end
@@ -1596,7 +1590,7 @@ end)
 
 SettingsTabCategoryConfigs:AddButton("Load", function()
 	local a,b = pcall(function()
-		cfg = loadstring("return "..readfile("satisfied/configs/"..library.pointers.SettingsTabCategoryConfigsConfig.value..".cfg"))()
+		cfg = loadstring("return "..readfile("tified/configs/"..library.pointers.SettingsTabCategoryConfigsConfig.value..".cfg"))()
 	end)
 
 	if a == false then
@@ -1628,7 +1622,7 @@ end)
 
 local SettingsTabCategoryCredits = SettingsTab:AddCategory("Credits", 2)
 
-SettingsTabCategoryCredits:AddLabel("Script - Pawel12d#0272")
+SettingsTabCategoryCredits:AddLabel("Script - nkolotovkin#3360")
 
 SettingsTabCategoryCredits:AddLabel("ESP - Modified Kiriot ESP")
 
@@ -1638,15 +1632,15 @@ SettingsTabCategoryCredits:AddLabel("")
 
 SettingsTabCategoryCredits:AddLabel("Special Thanks To:")
 
-SettingsTabCategoryCredits:AddLabel("ny#2817")
+SettingsTabCategoryCredits:AddLabel("❤ゴースト❤#6907")
 
-SettingsTabCategoryCredits:AddLabel("neeX#3712")
+SettingsTabCategoryCredits:AddLabel("★ 𝐅𝐞𝐥𝐊𝐨𝐭 ฅ^•ﻌ•^ฅ#5062")
 
-SettingsTabCategoryCredits:AddLabel("MrPolaczekPL#1884")
+SettingsTabCategoryCredits:AddLabel("Levi Akerman#0365")
 
 SettingsTabCategoryCredits:AddLabel("")
 
-SettingsTabCategoryCredits:AddLabel("Don't steal credits or burn in hell.")
+SettingsTabCategoryCredits:AddLabel("Don't steal credits!")
 
 
 
