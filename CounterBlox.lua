@@ -36,24 +36,24 @@ if not isfolder("satisfied/configs") then
 end
 
 if not isfile("satisfied/autoload.txt") then
-	writefile("tified/autoload.txt", "")
+	writefile("satisfied/autoload.txt", "")
 end
 
 if not isfile("satisfied/custom_skins.txt") then
-	writefile("tified/custom_skins.txt", game:HttpGet("https://raw.githubusercontent.com/nkolotovkin1/5675/main/default_data/custom_skins.txt"))
+	writefile("satisfied/custom_skins.txt", game:HttpGet("https://raw.githubusercontent.com/nkolotovkin1/5675/main/default_data/custom_skins.txt"))
 end
 
 if not isfile("satisfied/custom_models.txt") then
-	writefile("tified/custom_models.txt", game:HttpGet("https://raw.githubusercontent.com/nkolotovkin1/5675/main/default_data/custom_models.txt"))
+	writefile("satisfied/custom_models.txt", game:HttpGet("https://raw.githubusercontent.com/nkolotovkin1/5675/main/default_data/custom_models.txt"))
 end
 
 if not isfile("satisfied/inventories.txt") then
 	print("downloading satisfied inventories file")
-	writefile("tified/inventories.txt", game:HttpGet("https://raw.githubusercontent.com/nkolotovkin1/5675/main/default_data/inventories.txt"))
+	writefile("satisfied/inventories.txt", game:HttpGet("https://raw.githubusercontent.com/nkolotovkin1/5675/main/default_data/inventories.txt"))
 end
 
 if not isfile("satisfied/skyboxes.txt") then
-	writefile("tified/skyboxes.txt", game:HttpGet("https://raw.githubusercontent.com/nkolotovkin1/5675/main/default_data/skyboxes.txt"))
+	writefile("satisfied/skyboxes.txt", game:HttpGet("https://raw.githubusercontent.com/nkolotovkin1/5675/main/default_data/skyboxes.txt"))
 end
 
 Hint.Text = "satisfied | Loading..."
@@ -104,8 +104,8 @@ local FOVCircle = Drawing.new("Circle")
 local Cases = {}; for i,v in pairs(game.ReplicatedStorage.Cases:GetChildren()) do table.insert(Cases, v.Name) end
 
 local Configs = {}
-local Inventories = loadstring("return "..readfile("tified/inventories.txt"))()
-local Skyboxes = loadstring("return "..readfile("tified/skyboxes.txt"))()
+local Inventories = loadstring("return "..readfile("satisfied/inventories.txt"))()
+local Skyboxes = loadstring("return "..readfile("satisfied/skyboxes.txt"))()
 
 
 
@@ -120,10 +120,8 @@ local nocw_s = {}
 local nocw_m = {}
 local curVel = 16
 local isBhopping = false
-
 local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/nkolotovkin1/5675/main/ESP.lua"))()
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/nkolotovkin1/5675/main/UILibrary.lua"))()
-
 local Window = library:CreateWindow(Vector2.new(500, 500), Vector2.new((workspace.CurrentCamera.ViewportSize.X/2)-250, (workspace.CurrentCamera.ViewportSize.Y/2)-250))
 
 
@@ -1025,7 +1023,7 @@ local a,b = pcall(function()
 
 		ViewmodelsBackup:Clone().Parent = game.ReplicatedStorage
 
-		for i,v in pairs(loadstring("return "..readfile("tified/custom_models.txt"))()) do
+		for i,v in pairs(loadstring("return "..readfile("satisfied/custom_models.txt"))()) do
 			if table.find(val, v.weaponname) then
 				AddCustomModel(v)
 			end
@@ -1039,7 +1037,7 @@ end
 
 MiscellaneousTabCategoryMain:AddDropdown("Inventory Changer", TableToNames(Inventories), "-", "MiscellaneousTabCategoryMainInventoryChanger", function(val)
 	local InventoryLoadout = LocalPlayer.PlayerGui.GUI["Inventory&Loadout"]
-	local InventoriesData = loadstring("return "..readfile("tified/inventories.txt"))()
+	local InventoriesData = loadstring("return "..readfile("satisfied/inventories.txt"))()
 
 	if typeof(InventoriesData[val]) == "table" then
 		cbClient.CurrentInventory = InventoriesData[val]
@@ -1088,7 +1086,7 @@ end)
 
 MiscellaneousTabCategoryMain:AddButton("Inject Custom Skins", function()
 	if #nocw_s == 0 then
-		for i,v in pairs(loadstring("return "..readfile("tified/custom_skins.txt"))()) do
+		for i,v in pairs(loadstring("return "..readfile("satisfied/custom_skins.txt"))()) do
 			AddCustomSkin(v)
 			game:GetService("RunService").Stepped:Wait()
 		end
@@ -1513,10 +1511,6 @@ SettingsTabCategoryMain:AddButton("Server Rejoin", function()
 	game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, LocalPlayer)
 end)
 
-SettingsTabCategoryMain:AddButton("Copy Discord Invite", function()
-	setclipboard("https://discord.gg/47YH2Ay")
-end)
-
 SettingsTabCategoryMain:AddButton("Copy Roblox Game Invite", function()
 	setclipboard("Roblox.GameLauncher.joinGameInstance("..game.PlaceId..", '"..game.JobId.."')")
 end)
@@ -1590,7 +1584,7 @@ end)
 
 SettingsTabCategoryConfigs:AddButton("Load", function()
 	local a,b = pcall(function()
-		cfg = loadstring("return "..readfile("tified/configs/"..library.pointers.SettingsTabCategoryConfigsConfig.value..".cfg"))()
+		cfg = loadstring("return "..readfile("satisfied/configs/"..library.pointers.SettingsTabCategoryConfigsConfig.value..".cfg"))()
 	end)
 
 	if a == false then
